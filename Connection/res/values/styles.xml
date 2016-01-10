@@ -1,0 +1,60 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    
+    <style name="style_button_dialog_normal" parent="@android:style/Widget.Button">
+    	<item name="android:background">@drawable/drawable_button_dialog_normal</item>
+        <item name="android:width">@dimen/widget_width_medial</item>
+        <item name="android:height">@dimen/widget_height</item>
+        <item name="android:textColor">@color/color_text_black</item>    
+    </style>
+    
+    <style name="style_button_dialog_positive" parent="@android:style/Widget.Button">
+    	<item name="android:background">@drawable/drawable_button_dialog_positive</item>
+        <item name="android:width">@dimen/widget_width_medial</item>
+        <item name="android:height">@dimen/widget_height</item>
+        <item name="android:textColor">@color/color_white</item>    
+    </style>
+    
+    <style name="style_button_dialog_alter" parent="@android:style/Widget.Button">
+    	<item name="android:background">@drawable/drawable_button_dialog_alter</item>
+        <item name="android:width">@dimen/widget_width_medial</item>
+        <item name="android:height">@dimen/widget_height</item>    
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+    
+    <style name="style_button_dialog_negative" parent="@android:style/Widget.Button">
+    	<item name="android:background">@drawable/drawable_button_dialog_negative</item>
+        <item name="android:width">@dimen/widget_width_medial</item>
+        <item name="android:height">@dimen/widget_height</item>
+        <item name="android:textColor">@color/color_white</item>    
+    </style>
+    
+    <style name="style_edittext_dialog" parent="@android:style/Widget.EditText">
+        <item name="android:background">@drawable/drawable_edittext</item>
+        <item name="android:textColorHint">@color/color_gray_light</item>
+        <item name="android:padding">@dimen/widget_edittext_padding</item>
+        <item name="android:width">@dimen/widget_width_long</item>
+        <item name="android:height">@dimen/widget_height</item>
+
+    </style>
+    
+    
+
+</resources>

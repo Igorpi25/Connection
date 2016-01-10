@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ivanov\'s Tech Connection</string>
+    <string name="logo">com.ivanov.tech.connection</string>
+    <string name="subs">(demo activity)</string>
+    
+    <string name="server_url">http://www.yandex.ru</string>
+  
+    <string name="connection_button_confirm">Confirm</string>
+    <string name="connection_button_cancel">Cancel</string>
+    <string name="connection_textview_message">Can\'t connect to the Internet. Go to network settings?</string>
+
+    <string name="connection_server_button_retry">Retry</string>
+    <string name="connection_server_textview_message">Sorry, server is not responding. Please try again after few minites</string>
+    
+
+</resources>

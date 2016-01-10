@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item   android:bottom="@dimen/edittext_dialog_padding" android:top="@dimen/edittext_dialog_padding" android:left="@dimen/edittext_dialog_padding" android:right="@dimen/edittext_dialog_padding">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/color_white"/>
+            <stroke android:width="@dimen/edittext_dialog_stroke_width" android:color="@color/color_gray" />
+            <corners android:radius="@dimen/edittext_dialog_corner_radius"/>
+        </shape>
+    </item>
+</layer-list>
