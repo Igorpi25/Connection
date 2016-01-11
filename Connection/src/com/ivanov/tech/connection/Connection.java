@@ -27,7 +27,7 @@ public class Connection {
     public final static String URL_VERSION="v1/";
     public final static String URL_SERVER=URL_TRANSPORT+URL_DOMEN+URL_VERSION;
     
-    public static final String URL_WEBSOCKET = "ws://192.168.0.100:8001";
+    public static final String URL_WEBSOCKET = "ws://192.168.0.100:8001";//Used in websocket connection
 
     //You should write your own server URL here (url of php-script, e.g.)  
     private final static String serverTestUrl = URL_SERVER+"testconnection.php";
