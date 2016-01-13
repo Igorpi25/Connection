@@ -23,8 +23,8 @@ public class Connection {
     private final static String TAG="Connection";
     
     public final static String URL_TRANSPORT="http://";
-    public final static String URL_DOMEN="192.168.0.100/";
-    public final static String URL_VERSION="v1/";
+    public final static String URL_DOMEN="192.168.0.100/"; //Your servers domen or ip 
+    public final static String URL_VERSION="v1/"; 
     public final static String URL_SERVER=URL_TRANSPORT+URL_DOMEN+URL_VERSION;
     
     public static final String URL_WEBSOCKET = "ws://192.168.0.100:8001";//Used in websocket connection
@@ -36,7 +36,7 @@ public class Connection {
 
     	
         if(isOnline(context)){
-            doServerTestRequest(context,fragmentManager,container,statusListener);
+            //doServerTestRequest(context,fragmentManager,container,statusListener);
             return;
         }
         

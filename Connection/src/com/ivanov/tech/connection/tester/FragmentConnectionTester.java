@@ -77,6 +77,11 @@ public class FragmentConnectionTester extends SherlockDialogFragment implements 
 		
 		if (v.getId()==button_check.getId()){
 			
+//			if(Connection.isOnline(getActivity())){
+//				textview_response.setText("online");
+//			}else{
+//				textview_response.setText("offline");
+//			}
 			Connection.checkConnection(getActivity(), getFragmentManager(),R.id.main_container, new Status(){
 				@Override
 				public void isConnected() {					
