@@ -38,7 +38,7 @@ Connection.checkConnection(getActivity, getFragmentManager(),R.id.main_container
 Если в момент вызова `Connection.checkConnection(..)` есть доступ к интернету, то вызывается метод `isConnected` переданного Status объекта; 
 иначе создается и открывается фрагмент `ConnectionFragment`:
 
-![alt text](screenshot_ConnectionFragment.png "ConnectionFragment")
+<img src="screenshot_ConnectionFragment.png" width="48">
 
 При нажатии "Confirm" переходим к "Настройки сети" телефона. При нажатии "Cancel" фрагмент закрывается, 
 и вызывается метод `onCanceled` переданного Status объекта
