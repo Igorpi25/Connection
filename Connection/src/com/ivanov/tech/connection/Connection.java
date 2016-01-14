@@ -21,7 +21,7 @@ import org.json.JSONObject;
 public class Connection {
 
 	//Туора бардыбыт
-	//Туора бардыбыт 3.3
+	//Туора бардыбыт
     private final static String TAG="Connection";
     
     public final static String URL_TRANSPORT="http://";
