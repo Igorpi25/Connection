@@ -21,7 +21,10 @@ import org.json.JSONObject;
 public class Connection {
 
 	//Туора бардыбыт
+	//Туора бардыбыт 2
     private final static String TAG="Connection";
+    
+    
     
     public final static String URL_TRANSPORT="http://";
     public final static String URL_DOMEN="192.168.0.100/"; //Your servers domen or ip 
