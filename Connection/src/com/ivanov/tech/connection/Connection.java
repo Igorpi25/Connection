@@ -13,7 +13,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.toolbox.StringRequest;
 
-
 public class Connection {
 
     private final static String TAG=Connection.class.getSimpleName();
