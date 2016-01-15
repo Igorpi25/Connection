@@ -1,8 +1,9 @@
 Connection
 ==========
 
-Протокол обеспечения доступа в интернет. Автоматически проверяет доступность интернета, перед выполнением нужной операции.
-Полезно если для выполнения операции критически важн иметь доступ в интернет.
+Протокол обеспечения доступа в интернет. Автоматически проверяет доступность интернета, перед выполнением нужной операции. Если операция исполняется через протокол "Connection", то исполнение операции начнется только, если все условия протокола "Connection"(есть доступ в интернет) выполнены. В противном случае будет показан диалог, с возможностью отмены операции.
+
+Полезно если для выполнения операции критически важно иметь доступ в интернет.
   
 __1.__      Автоматически создает и показывает диалоги, используя `SupportFragmentManager`
 __2.__      Самостоятельно регистрирует и удаляет `BroadcastReciever` (`android.net.conn.CONNECTIVITY_CHANGE`). Благодаря этому, диалог "Нет доступа в интернет" автоматически закрывается как только появляется доступ в интернет.
@@ -15,34 +16,34 @@ import com.ivanov.tech.connection.Connection;
 ```
 
 ```java
-Connection.checkConnection(getActivity, getFragmentManager(),R.id.main_container, new Status(){
+Connection.protocolConnection(getActivity(), getFragmentManager(),R.id.main_container, new ProtocolListener(){
 				@Override
-				public void isConnected() {					
-					// Ваш код, когда есть доступ к интернету
+				public void isCompleted() {					
+					//Все условия протокола выполнены
+					yourOperation();
 				}
 
 				@Override
 				public void onCanceled() {
-					// Когда нет доступа к интернету. При нажатии "Cancel" или кнопки "Назад"
+					//Пользователь нажал "Cancel"
 				}
-			}
-);
+			});
 ```
 Аргументы:
 * `getActivity` - контекст активити
-* `getFragmentManager` - `supportFragmentManager` из actionbarsherlock
-* `R.id.main_container` - передается лэйоут используемый в качестве окна активити
-* ```java new Status()``` - реализация интерфэйса `Status` для обратного вызова
+* `getFragmentManager` - `supportFragmentManager` из actionbarsherlock (Внимание! Не путайте с нативным getFragmentManager)
+* `R.id.main_container` - передается layout используемый в качестве окна активити, тогда диалог будет показан на весь экран. Если передать другой layout, то в качестве окна диалога будет использован переданный вами layout
+* ```java new ProtocolListener``` - реализация интерфэйса `ProtocolListener` для обратного вызова. Тут передается операция (другими словами ваш код)
 
-Если в момент вызова `Connection.checkConnection(..)` есть доступ к интернету, то вызывается метод `isConnected` переданного Status объекта; 
-иначе создается и открывается фрагмент `ConnectionFragment`:
+Если в момент вызова `Connection.protocolConnection(..)` есть доступ к интернету, то вызывается метод `isCompleted` переданного `ProtocolListener` объекта; 
+иначе создается и открывается фрагмент `FragmentNoConnection`:
 
-<img src="screenshot_ConnectionFragment.png" width="340">
+<img src="screenshot_FragmentNoConnection.png" width="340">
 
 При нажатии "Confirm" переходим к "Настройки сети" телефона. При нажатии "Cancel" фрагмент закрывается, 
 и вызывается метод `onCanceled` переданного Status объекта
 
-При создании, `ConnectionFragment` самостоятельно регистрирует `BroadcastReciever`, который вызывает `isConnected` в случае появления интернета.
+При создании, фрагмент `FragmentNoConnection` самостоятельно регистрирует `BroadcastReciever`, который вызывает `isConnected` в случае появления интернета.
  
 Добавление проекта в Eclipse
 ----------------------------
