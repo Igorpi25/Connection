@@ -1,4 +1,4 @@
-package com.ivanov.tech.connection.tester;
+package com.ivanov.tech.connection.demo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.ivanov.tech.connection.Connection;
 import com.ivanov.tech.connection.R;
 import com.ivanov.tech.connection.R.id;
 import com.ivanov.tech.connection.R.layout;
@@ -18,24 +19,17 @@ import com.ivanov.tech.connection.R.layout;
 /**
  * Created by Игорь on 15.01.15.
  */
-public class MainActivity extends SherlockFragmentActivity {
+public class ActivityDemo extends SherlockFragmentActivity {
 
+	private static final String TAG=Connection.class.getSimpleName();
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
         
-        changeFragment(0);
-    }
-
-
-    private void changeFragment(int position) {
-        switch (position) {
-            case 0:
-                showFragment(new FragmentConnectionTester());
-                break;
-        }
+        showFragment(new FragmentDemo());
     }
 
     private void showFragment(Fragment currentFragment) {

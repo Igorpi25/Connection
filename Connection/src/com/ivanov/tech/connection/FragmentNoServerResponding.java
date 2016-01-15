@@ -10,19 +10,19 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 
-public class ConnectionServerFragment extends SherlockDialogFragment {
+public class FragmentNoServerResponding extends SherlockDialogFragment {
 
-    private static final String TAG="ConnectionServerFragment";
+    private static final String TAG=Connection.class.getSimpleName();
 
     TextView textview_message;
     Button button_retry;
     View layout_dimming;
 
-    ServerRespondingStatus serverRespondingStatus;
+    FragmentNoServerRespondingEventListener fragmentNoServerRespondingEventListener;
 
-    public static ConnectionServerFragment newInstance(ServerRespondingStatus listener) {
-        ConnectionServerFragment f = new ConnectionServerFragment();
-        f.serverRespondingStatus =listener;
+    public static FragmentNoServerResponding newInstance(FragmentNoServerRespondingEventListener listener) {
+        FragmentNoServerResponding f = new FragmentNoServerResponding();
+        f.fragmentNoServerRespondingEventListener =listener;
         return f;
     }
 
@@ -46,7 +46,7 @@ public class ConnectionServerFragment extends SherlockDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
-        view = inflater.inflate(R.layout.fragment_connection_server, container, false);
+        view = inflater.inflate(R.layout.fragment_no_server_responding, container, false);
         textview_message = (TextView) view.findViewById(R.id.fragment_connection_server_textview_message);
         button_retry = (Button) view.findViewById(R.id.fragment_connection_server_button_retry);
         layout_dimming=view.findViewById(R.id.fragment_connection_server_layout_dimming);
@@ -55,7 +55,7 @@ public class ConnectionServerFragment extends SherlockDialogFragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().popBackStack();
-                serverRespondingStatus.onRetry();
+                fragmentNoServerRespondingEventListener.onRetry();
             }
         });
 
@@ -65,7 +65,7 @@ public class ConnectionServerFragment extends SherlockDialogFragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction()==MotionEvent.ACTION_DOWN){
                     getFragmentManager().popBackStack();
-                    serverRespondingStatus.onCancel();
+                    fragmentNoServerRespondingEventListener.onCancel();
                 }
                 return true;
             }
@@ -75,7 +75,7 @@ public class ConnectionServerFragment extends SherlockDialogFragment {
     }
 
 
-    public interface ServerRespondingStatus {
+    public interface FragmentNoServerRespondingEventListener {
         public void onRetry();
         public void onCancel();
     }

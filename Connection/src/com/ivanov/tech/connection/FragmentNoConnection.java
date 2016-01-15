@@ -17,18 +17,18 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 
-public class ConnectionFragment extends SherlockDialogFragment {
+public class FragmentNoConnection extends SherlockDialogFragment {
 
-    private static final String TAG="ConnectionFragment";
+    private static final String TAG=Connection.class.getSimpleName();
     TextView edittext_message;
     Button button_confirm,button_cancel;
     View layout_dimming;
 
-    ConnectionStatus connectionStatus;
+    FragmentNoConnectionEventListener fragmentNoConnectionEventListener;
 
-    public static ConnectionFragment newInstance(ConnectionStatus listener) {
-    	ConnectionFragment f = new ConnectionFragment();
-        f.connectionStatus =listener;
+    public static FragmentNoConnection newInstance(FragmentNoConnectionEventListener listener) {
+    	FragmentNoConnection f = new FragmentNoConnection();
+        f.fragmentNoConnectionEventListener =listener;
         return f;
     }
 
@@ -56,7 +56,7 @@ public class ConnectionFragment extends SherlockDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
-        view = inflater.inflate(R.layout.fragment_connection, container, false);
+        view = inflater.inflate(R.layout.fragment_no_connection, container, false);
         edittext_message = (TextView) view.findViewById(R.id.fragment_connection_server_textview_message);
         button_confirm = (Button) view.findViewById(R.id.fragment_connection_button_confirm);
         button_cancel = (Button) view.findViewById(R.id.fragment_connection_button_cancel);
@@ -72,7 +72,7 @@ public class ConnectionFragment extends SherlockDialogFragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().popBackStack();
-                connectionStatus.onCanceled();
+                fragmentNoConnectionEventListener.onCanceled();
             }
         });
 
@@ -82,7 +82,7 @@ public class ConnectionFragment extends SherlockDialogFragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction()==MotionEvent.ACTION_DOWN){
                     getFragmentManager().popBackStack();
-                    connectionStatus.onCanceled();
+                    fragmentNoConnectionEventListener.onCanceled();
                 }
                 return true;
             }
@@ -114,13 +114,13 @@ public class ConnectionFragment extends SherlockDialogFragment {
 
                 if(Connection.isOnline(getActivity())){
                     getFragmentManager().popBackStack();
-                    connectionStatus.onInternetIsAvailable();
+                    fragmentNoConnectionEventListener.onInternetIsAvailable();
                 }
             }
         }
     };
 
-    public interface ConnectionStatus {
+    public interface FragmentNoConnectionEventListener {
         public void onInternetIsAvailable();
         public void onCanceled();
     }
