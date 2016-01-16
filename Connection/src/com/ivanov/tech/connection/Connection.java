@@ -1,7 +1,6 @@
 package com.ivanov.tech.connection;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.FragmentManager;
@@ -11,39 +10,50 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.android.volley.toolbox.StringRequest;
 
 public class Connection {
 
-    private final static String TAG="Connection";
-    
-    public final static String URL_TRANSPORT="http://";
-    public final static String URL_DOMEN="192.168.0.100/";
-    public final static String URL_VERSION="v1/";
-    public final static String URL_SERVER=URL_TRANSPORT+URL_DOMEN+URL_VERSION;
-    
-    public static final String URL_WEBSOCKET = "ws://192.168.0.100:8001";//Used in websocket connection
+    private final static String TAG=Connection.class.getSimpleName();
 
-    //You should write your own server URL here (url of php-script, e.g.)  
-    private final static String serverTestUrl = URL_SERVER+"testconnection.php";
-
-    public static void checkConnection(final Context context, final FragmentManager fragmentManager, final int container,final Status statusListener){
-
+    public static boolean isOnline(Context context) {
+        ConnectivityManager connMgr = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
+    }
+        
+    public static void protocolConnection(final Context context, final FragmentManager fragmentManager, final int container,final ProtocolListener listener){
     	
-        if(isOnline(context)){
-            doServerTestRequest(context,fragmentManager,container,statusListener);
+        if(isOnline(context)){  
+        	listener.isCompleted();
             return;
         }
         
-        createConnectionFragment(context,fragmentManager,container,statusListener);
+        createFragmentNoConnection(context,fragmentManager,container,listener);
+    }
+    
+    public static void protocolServerResponding(final Context context, final String url, final FragmentManager fragmentManager, final int container,final ProtocolListener listener){
+    	
+    	//First protocol-connection have to be completed
+    	protocolConnection(context,fragmentManager,container,new ProtocolListener(){
+
+			@Override
+			public void isCompleted() {
+				//protocol-connection completed, now it have to check the server's responding
+				doRequestToServer(context,url,fragmentManager,container,listener);
+			}
+
+			@Override
+			public void onCanceled() {
+				listener.onCanceled();
+			}
+			
+        });
+    	
     }
 
-    public static void createConnectionServerFragment(final Context context,final FragmentManager fragmentManager, final int container,final Status statusListener){
+    public static void createFragmentNoServerResponding(final Context context, final String url, final FragmentManager fragmentManager, final int container,final ProtocolListener listener){
 
         try{
             if(fragmentManager.findFragmentByTag("ServerResponding").isVisible()){
@@ -53,16 +63,16 @@ public class Connection {
             }
         }catch(NullPointerException e) {
 
-            ConnectionServerFragment connectionserverfragment = ConnectionServerFragment.newInstance(new ConnectionServerFragment.ServerRespondingStatus() {
+            FragmentNoServerResponding connectionserverfragment = FragmentNoServerResponding.newInstance(new FragmentNoServerResponding.FragmentNoServerRespondingEventListener() {
 
                 @Override
                 public void onRetry() {
-                    checkConnection(context, fragmentManager,container, statusListener);
+                	protocolServerResponding(context, url, fragmentManager,container, listener);
                 }
                 
                 @Override
                 public void onCancel() {
-                	statusListener.onCanceled();
+                	listener.onCanceled();
                 }
             });
 
@@ -74,7 +84,7 @@ public class Connection {
         }
     }
 
-    public static void createConnectionFragment(final Context context,final FragmentManager fragmentManager, final int container,final Status statusListener){
+    public static void createFragmentNoConnection(final Context context,final FragmentManager fragmentManager, final int container,final ProtocolListener listener){
 
         try{
             if(fragmentManager.findFragmentByTag("Connection").isVisible()){
@@ -84,15 +94,15 @@ public class Connection {
             }
         }catch(NullPointerException e){
 
-            ConnectionFragment connectionfragment = ConnectionFragment.newInstance(new ConnectionFragment.ConnectionStatus(){
+            FragmentNoConnection connectionfragment = FragmentNoConnection.newInstance(new FragmentNoConnection.FragmentNoConnectionEventListener(){
                 @Override
                 public void onInternetIsAvailable() {
-                    doServerTestRequest(context,fragmentManager,container,statusListener);
+                	listener.isCompleted();
                 }
 
 				@Override
 				public void onCanceled() {
-					statusListener.onCanceled();
+					listener.onCanceled();
 				}
 
             });
@@ -105,75 +115,38 @@ public class Connection {
         }
     }
 
-    public static boolean isOnline(Context context) {
-        ConnectivityManager connMgr = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
-    }
+    public static void doRequestToServer(final Context context, final String url, final FragmentManager fragmentManager, final int container,final ProtocolListener listener) {
 
-    public static boolean doServerTestRequest(final Context context,final FragmentManager fragmentManager, final int container,final Status statusListener) {
+        StringRequest stringrequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 
-        JsonObjectRequest jsonObjRequest = new JsonObjectRequest(Request.Method.GET, serverTestUrl, null, new Response.Listener<JSONObject>() {
+        	@Override
+			public void onResponse(String response) {
 
-            @Override
-            public void onResponse(JSONObject response) {
-                // TODO Auto-generated method stub
-
-                try{
-                    if(response.getInt("connection")==1){
-                        statusListener.isConnected();
-                        //Log.d(TAG,"isServerResponding connected");
-                    }else{
-                        throw (new JSONException("server responded, but it\'s not available"));
-                    }
-                }catch (JSONException e){
-                    createConnectionServerFragment(context,fragmentManager,container,statusListener);
-                }
+            	Log.d(TAG, "doRequestToServer onResponse response="+response);
+            	
+            	listener.isCompleted();
             }
+			
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "isServerResponding error=" + error.toString());
-                createConnectionServerFragment(context,fragmentManager,container,statusListener);
+                Log.d(TAG, "doRequestToServer onErrorResponse error=" + error.toString());
+                createFragmentNoServerResponding(context,url,fragmentManager,container,listener);
 
             }
         });
         
 
-        String tag_json_obj =TAG+"doServerTestRequest";
+        String tag_stringrequest ="doRequestToServer_"+url;
     	
-    	jsonObjRequest.setTag(tag_json_obj);
-    	Volley.newRequestQueue(context.getApplicationContext()).add(jsonObjRequest);
+    	stringrequest.setTag(tag_stringrequest);
+    	Volley.newRequestQueue(context.getApplicationContext()).add(stringrequest);
     
-        return false;
     }
 
-    public interface Status{
-        public void isConnected();
+    public interface ProtocolListener{
+        public void isCompleted();
         public void onCanceled();
     }
-
-//--------------Service LastTime Preferences--------------------------------
-	
-    private static final String PREF = "Connection";    
-    public static final String PREF_LAST_TIMESTAMP="PREF_LAST_TIMESTAMP";
-    public static final long PREF_LAST_TIMESTAMP_DEFAULT=0;
-    
-    static private SharedPreferences preferences=null;
-    
-    public static void Initialize(Context context){
-    	if(preferences==null){
-    		preferences=context.getApplicationContext().getSharedPreferences(PREF, 0);
-    	}
-    }
-    
-    public static long getLastTimestamp(){		
-  		return preferences.getLong(Connection.PREF_LAST_TIMESTAMP, Connection.PREF_LAST_TIMESTAMP_DEFAULT);
-  	}
-    
-    public static void setLastTimestamp(long timestamp){  		
-  			preferences.edit().putLong(Connection.PREF_LAST_TIMESTAMP, timestamp).commit();
-  	}
-
 }

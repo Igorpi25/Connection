@@ -9,10 +9,7 @@
     <color name="color_gray_dark">#1b1b1b</color>
     <color name="color_white">#FFF</color>    
     <color name="color_red">#c81818</color>
-    
-    <color name="color_green">#ff0c660c</color>
-    <color name="color_green_dark">#094d09</color> 
-       
+    <color name="color_green">#18c818</color>
     <color name="color_transparent">#0000</color>
     <color name="color_pink">#da5e5e</color>
 
@@ -26,8 +23,6 @@
     <color name="color_text_white">#FFF</color>
     <color name="color_text_black">#000</color>
     <color name="color_text_gray">#bfbfbf</color>
-    
-    <color name="color_mat">#EEE</color>
 
     
     

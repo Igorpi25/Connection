@@ -44,12 +44,4 @@
             android:typeface="sans" />
 
     </RelativeLayout>
-    
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bottom_container">
-
-    </RelativeLayout>
-    
 </LinearLayout>

@@ -18,15 +18,8 @@
     </style>
     
     
-    <style name="style_button_dialog_normal" parent="@android:style/Widget.Button">
-    	<item name="android:background">@drawable/drawable_button_dialog_normal</item>
-        <item name="android:width">@dimen/widget_width_medial</item>
-        <item name="android:height">@dimen/widget_height</item>
-        <item name="android:textColor">@color/color_text_black</item>    
-    </style>
-    
-    <style name="style_button_dialog_positive" parent="@android:style/Widget.Button">
-    	<item name="android:background">@drawable/drawable_button_dialog_positive</item>
+    <style name="style_button_dialog" parent="@android:style/Widget.Button">
+    	<item name="android:background">@drawable/drawable_button_dialog</item>
         <item name="android:width">@dimen/widget_width_medial</item>
         <item name="android:height">@dimen/widget_height</item>
         <item name="android:textColor">@color/color_white</item>    
@@ -37,13 +30,6 @@
         <item name="android:width">@dimen/widget_width_medial</item>
         <item name="android:height">@dimen/widget_height</item>    
         <item name="android:textColor">@color/color_white</item>
-    </style>
-    
-    <style name="style_button_dialog_negative" parent="@android:style/Widget.Button">
-    	<item name="android:background">@drawable/drawable_button_dialog_negative</item>
-        <item name="android:width">@dimen/widget_width_medial</item>
-        <item name="android:height">@dimen/widget_height</item>
-        <item name="android:textColor">@color/color_white</item>    
     </style>
     
     <style name="style_edittext_dialog" parent="@android:style/Widget.EditText">

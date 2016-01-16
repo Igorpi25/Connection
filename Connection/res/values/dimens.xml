@@ -12,11 +12,10 @@
  
     <dimen name="button_dialog_padding">2dp</dimen>    
     <dimen name="button_dialog_corner_radius">2dp</dimen>
-    <dimen name="button_dialog_stroke_width">0.5dp</dimen>
     
     <dimen name="edittext_dialog_padding">2dp</dimen>    
     <dimen name="edittext_dialog_corner_radius">2dp</dimen>
-    <dimen name="edittext_dialog_stroke_width">0.7dp</dimen>
+    <dimen name="edittext_dialog_stroke_width">2dp</dimen>
     <dimen name="edittext_dialog_padding_separator">0.5dp</dimen>
     
     
