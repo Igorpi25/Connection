@@ -1,4 +1,4 @@
-Connection
+Протокол Connection
 ==========
 
 Протокол обеспечения доступа в интернет. Автоматически проверяет доступность интернета, перед выполнением нужной операции. Если операция исполняется через протокол "Connection", то исполнение операции начнется только, если все условия протокола "Connection"(есть доступ в интернет) выполнены. В противном случае будет показан диалог, с возможностью отмены операции.
@@ -7,6 +7,7 @@ Connection
   
 * Автоматически создает и показывает диалоги, используя `SupportFragmentManager`
 * Самостоятельно регистрирует и удаляет `BroadcastReciever` (`android.net.conn.CONNECTIVITY_CHANGE`). Благодаря этому, диалог "Нет доступа в интернет" автоматически закрывается как только появляется доступ в интернет.
+
 
 Пример использования
 --------------------
@@ -44,11 +45,17 @@ Connection.protocolConnection(getActivity(), getFragmentManager(),R.id.main_cont
 и вызывается метод `onCanceled` переданного Status объекта
 
 При создании, фрагмент `FragmentNoConnection` самостоятельно регистрирует `BroadcastReciever`, который вызывает `isConnected` в случае появления интернета.
+
+Используемые библиотеки
+-----------------------
+
+* [ActionBarSherlock][1]
+* [Volley][2]
  
 Добавление проекта в Eclipse
 ----------------------------
 * Для работы Connection требуется [ActionBarSherlock][1]
-* Добавьте проект Conneсtion в Workspace. 
+* Добавьте проект Conneсtion в Workspace
 * Установите ActionBarSherlock в качестве библиотеки
 * Выполните Project->Clean
 
@@ -66,9 +73,10 @@ Connection.protocolConnection(getActivity(), getFragmentManager(),R.id.main_cont
 * В манифесте добавьте строки:
 ```xml
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
 ```
 
 [1]: http://actionbarsherlock.com/
+[2]: https://github.com/mcxiaoke/android-volley
