@@ -15,7 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 
 public class Connection {
 
-    private final static String TAG=Connection.class.getSimpleName();
+    private final static String TAG=Connection.class.getSimpleName();//Used in logs
 
     public static boolean isOnline(Context context) {
         ConnectivityManager connMgr = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -35,7 +35,7 @@ public class Connection {
     
     public static void protocolServerResponding(final Context context, final String url, final FragmentManager fragmentManager, final int container,final ProtocolListener listener){
     	
-    	//First protocol-connection have to be completed
+    	//protocol-connection must be completed, before start protocol-server-responding
     	protocolConnection(context,fragmentManager,container,new ProtocolListener(){
 
 			@Override
@@ -52,6 +52,8 @@ public class Connection {
         });
     	
     }
+
+//-----------------Methods to Create fragment and show it in container-------------------------------------------
 
     public static void createFragmentNoServerResponding(final Context context, final String url, final FragmentManager fragmentManager, final int container,final ProtocolListener listener){
 
@@ -115,6 +117,8 @@ public class Connection {
         }
     }
 
+//-------------------------Http Get Request to the server to check if server available----------------------------------- 
+
     public static void doRequestToServer(final Context context, final String url, final FragmentManager fragmentManager, final int container,final ProtocolListener listener) {
 
         StringRequest stringrequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -144,6 +148,8 @@ public class Connection {
     	Volley.newRequestQueue(context.getApplicationContext()).add(stringrequest);
     
     }
+
+//----------------------Listener used to make callback if protocol completed-----------------------------
 
     public interface ProtocolListener{
         public void isCompleted();
