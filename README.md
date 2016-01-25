@@ -62,7 +62,7 @@ Connection.protocolConnection(getActivity(), getFragmentManager(),R.id.main_cont
 Запуск демонстрационного приложения:
 ------------------------------------
 * Выполните все из "Добавление проекта в Eclipse"
-* Удостоверьтесь что проект НЕ БИБЛИОТЕКА. Перейдите Project->Properties->Android, УБЕРИТЕ галочку isLibrary (находится внизу окна), нажмите "Apply"
+* Удостоверьтесь что проект НЕ БИБЛИОТЕКА. Для этого перейдите Project->Properties->Android, УБЕРИТЕ галочку isLibrary (находится внизу окна), нажмите "Apply"
 * Можно запустить
 
 <img src="screenshot_FragmentDemo.png" width="200">
@@ -80,5 +80,8 @@ Connection.protocolConnection(getActivity(), getFragmentManager(),R.id.main_cont
 	<uses-permission android:name="android.permission.INTERNET" />
 ```
 
+Пример использования библиотеки вы можете видеть в проекте [Session][3]
+
 [1]: http://actionbarsherlock.com/
 [2]: https://github.com/mcxiaoke/android-volley
+[3]: https://github.com/Igorpi25/Session
