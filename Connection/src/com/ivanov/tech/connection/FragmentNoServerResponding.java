@@ -1,6 +1,7 @@
 package com.ivanov.tech.connection;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -8,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 
-public class FragmentNoServerResponding extends SherlockDialogFragment {
+public class FragmentNoServerResponding extends DialogFragment {
 
     private static final String TAG=Connection.class.getSimpleName();
 

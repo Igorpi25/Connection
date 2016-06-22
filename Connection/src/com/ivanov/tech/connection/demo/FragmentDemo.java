@@ -3,6 +3,7 @@ package com.ivanov.tech.connection.demo;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -26,7 +26,7 @@ import com.ivanov.tech.connection.Connection.ProtocolListener;
 /**
  * Created by Igor on 09.05.15.
  */
-public class FragmentDemo extends SherlockDialogFragment implements OnClickListener {
+public class FragmentDemo extends DialogFragment implements OnClickListener {
 
 
     public static final String TAG = Connection.class.getSimpleName();
